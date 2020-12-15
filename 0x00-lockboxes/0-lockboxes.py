@@ -2,7 +2,12 @@
 
 
 def canUnlockAll(boxes):
-    for ibox in range(len(boxes)):
-        if not boxes[ibox] and ibox != len(boxes) - 1:
+    all_keys = []
+    for ibox in boxes:
+        for i in ibox:
+            all_keys.append(i)
+    all_keys = set(all_keys)
+    for i in range(1, len(boxes) + 1):
+        if i not in all_keys:
             return False
     return True
