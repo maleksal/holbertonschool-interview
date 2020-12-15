@@ -1,8 +1,9 @@
 #!/usr/bin/python3
 
+
 def canUnlockAll(boxes):
     all_keys = []
-    if 1 in boxes[0]:
+    if 1 in boxes[0] or boxes[0]:
         for ibox in boxes:
             for i in ibox:
                 all_keys.append(i)
