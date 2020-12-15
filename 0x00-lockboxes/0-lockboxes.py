@@ -3,7 +3,7 @@
 
 def canUnlockAll(boxes):
     all_keys = []
-    if 1 in boxes[0]:
+    if 1 in boxes[0] or 0 in boxes[0]:
         for ibox in boxes:
             for i in ibox:
                 all_keys.append(i)
