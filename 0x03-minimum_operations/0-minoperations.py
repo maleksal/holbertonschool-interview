@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-
+"""
+Module
+"""
 
 def find_min_divisor(n):
     '''Returns the minimum divisor of a given number n.'''
