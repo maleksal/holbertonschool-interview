@@ -15,6 +15,8 @@ def find_min_divisor(n):
 def minOperations(n):
     '''Takes an int number an determines min operations needed to reach n.'''
 
+    if n <2:
+        return 0
     hold = 0
     divisor = 0
     operations = 0
