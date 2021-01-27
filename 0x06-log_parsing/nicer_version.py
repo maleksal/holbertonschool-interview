@@ -29,15 +29,11 @@ class Parser:
         '''Extract useful data from string.'''
         occ, idx, i = 0, 0, 0
         while i < len(text):
-            if occ == 1 and text[i] == '\"':
-                idx = i
-                break
-            if text[i] == '\"':
-                occ += 1
+            if occ == 1 and text[i] == '\"': idx = i; break
+            if text[i] == '\"': occ += 1
             i += 1
         tlist = text[idx + 1:].split()
-        if not len(tlist) > 1:
-            tlist.insert(0, None)
+        if not len(tlist) > 1: tlist.insert(0, None)
         return tlist
 
     def start(self):
@@ -46,15 +42,12 @@ class Parser:
         for text in sys.stdin:
             if counter < self.lines:
                 data = self.extract_data(text)
-                if data[0] in self.__status_codes.keys():
-                    self.__status_codes[data[0]] += 1
-                elif data[0]:
-                    self.__status_codes[data[0]] = 1
+                if data[0] in self.__status_codes.keys(): self.__status_codes[data[0]] += 1
+                elif data[0]: self.__status_codes[data[0]] = 1
                 self.__file_size += int(data[1])
             else:
                 f, s = self.statics(self.__file_size, self.__status_codes)
-                if not print(f) and [print(i) for i in sorted(s)]:
-                    pass
+                if not print(f) and [print(i) for i in sorted(s)]: pass
                 counter -= self.lines
             counter += 1
 
