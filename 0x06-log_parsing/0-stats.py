@@ -20,12 +20,12 @@ class Parser:
 
     def signal_handler(self, signal, frame):
         '''Handles cntr-c signal.'''
-        self.build_data(self.__file_size, self.__status_codes)
+        return self.statics()
 
-    def statics(self, file_size, status_codes):
+    def statics(self):
         '''Helper function that builds statics.'''
         scodes = [f"{k}:{v}" for k, v in self.__status_codes.items()]
-        return (f"File size: {file_size}", scodes)
+        return (f"File size: {self.__file_size}", scodes)
 
     def extract_data(self, text):
         '''Extract useful data from string.'''
@@ -54,7 +54,7 @@ class Parser:
                     self.__status_codes[data[0]] = 1
                 self.__file_size += int(data[1])
             else:
-                f, s = self.statics(self.__file_size, self.__status_codes)
+                f, s = self.statics()
                 if not print(f) and [print(i) for i in sorted(s)]:
                     pass
                 counter -= self.lines
