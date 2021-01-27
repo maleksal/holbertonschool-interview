@@ -1,15 +1,51 @@
 #!/usr/bin/python3
-import datetime
-import random
 import sys
-from time import sleep
+from signal import SIGINT, signal
 
-for i in range(11):
-    sleep(random.random())
-    sys.stdout.write("{:d}.{:d}.{:d}.{:d} - [{}] \"GET /projects/260 HTTP/1.1\" {} {}\n".format(
-        random.randint(1, 255), random.randint(1, 255), random.randint(1, 255), random.randint(1, 255),
-        datetime.datetime.now(),
-        random.choice([200, 301, 400, 401, 403, 404, 405, 500]),
-        random.randint(1, 1024)
-    ))
-    sys.stdout.flush()
+
+class Parser:
+	'''
+	Parser class - parses lod data from stdin.
+
+	'''
+	__file_size = 0
+	__status_codes = {}
+
+	def __init__(self, lines=10):
+		'''Set lines && Start listening to cntrl-c.'''
+		self.lines = lines
+		signal(SIGINT, self.signal_handler)
+
+	def signal_handler(self, signal, frame):
+		'''Handles cntr-c signal.'''
+		self.build_data(self.__file_size, self.__status_codes)
+
+	def build_statics(self, file_size, status_codes):
+		'''Helper function that builds statics.'''
+		scodes = [f"{k}:{v}" for k, v in self.__status_codes.items()]
+		return (f"File size: {file_size}", scodes)
+
+	def extract_data(self, text):
+		'''Extract useful data from string.'''
+		occ, idx, i = 0, 0, 0
+		while i < len(text):
+			if occ == 1 and text[i] == '\"': idx = i; break
+			if text[i] == '\"': occ += 1
+			i += 1
+		return text[idx + 1:].split()
+
+	def start(self):
+		'''Process data.'''
+		counter = 0
+		for text in sys.stdin:
+			if counter < self.lines: 
+				data = self.extract_data(text)
+				if data[0] in self.__status_codes.keys(): self.__status_codes[data[0]] += 1
+				else: self.__status_codes[data[0]] = 1 ; self.__file_size += int(data[1])
+			else:
+				f, s = self.build_statics(self.__file_size, self.__status_codes)
+				if not print(f): [print(i) for i in sorted(s)]
+				counter  -= self.lines
+			counter += 1
+
+Parser().start()
