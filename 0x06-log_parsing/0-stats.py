@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-"""Log parsing algorithm"""
+"""
+Log parsing algorithm module
+"""
 
 import sys
 from signal import SIGINT, signal
