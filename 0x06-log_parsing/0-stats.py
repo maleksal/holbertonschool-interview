@@ -8,7 +8,6 @@ from signal import SIGINT, signal
 class Parser:
     """
     Parser class - parses lod data from stdin.
-
     """
     __file_size = 0
     __status_codes = {}
