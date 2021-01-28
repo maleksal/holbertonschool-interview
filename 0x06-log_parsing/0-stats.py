@@ -60,4 +60,5 @@ class Parser:
                 counter -= self.lines
             counter += 1
 
-Parser().start()
+if __name__ == "__main"":
+    Parser().start()
