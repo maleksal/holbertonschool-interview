@@ -6,29 +6,29 @@ from signal import SIGINT, signal
 
 
 class Parser:
-    '''
+    """
     Parser class - parses lod data from stdin.
 
-    '''
+    """
     __file_size = 0
     __status_codes = {}
 
     def __init__(self, lines=10):
-        '''Set lines && Start listening to cntrl-c.'''
+        """Set lines && Start listening to cntrl-c."""
         self.lines = lines
         signal(SIGINT, self.signal_handler)
 
     def signal_handler(self, signal, frame):
-        '''Handles cntr-c signal.'''
+        """Handles cntr-c signal."""
         return self.statics()
 
     def statics(self):
-        '''Helper function that builds statics.'''
+        """Helper function that builds statics."""
         scodes = [f"{k}:{v}" for k, v in self.__status_codes.items()]
         return (f"File size: {self.__file_size}", scodes)
 
     def extract_data(self, text):
-        '''Extract useful data from string.'''
+        """Extract useful data from string."""
         occ, idx, i = 0, 0, 0
         while i < len(text):
             if occ == 1 and text[i] == '\"':
@@ -43,7 +43,7 @@ class Parser:
         return tlist
 
     def start(self):
-        '''Process data.'''
+        """Process data."""
         counter = 0
         for text in sys.stdin:
             if counter < self.lines:
