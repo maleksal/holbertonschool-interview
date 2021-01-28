@@ -26,7 +26,7 @@ class Parser:
     def statics(self):
         """Helper function that builds statics."""
         scodes = ["{}:{}".format(k, v) for k, v in self.__status_codes.items()]
-        return (f"File size: {self.__file_size}", scodes)
+        return (f"File size: {}".format(self.__file_size), scodes)
 
     def extract_data(self, text):
         """Extract useful data from string."""
