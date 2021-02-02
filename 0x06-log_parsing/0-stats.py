@@ -5,36 +5,50 @@
 import sys
 
 
-def printx(data, status):
-    """ print the log """
-    print("File size: {}".format(data))
-    for key, value in sorted(status.items()):
-        if value != 0:
-            print("{}: {}".format(key, value))
+def signal_handler():
+    '''Handles cntr-c signal.'''
+    extract_data(file_size, status_codes)
 
-status = {
-    "200": 0, "301": 0, "400": 0, "401": 0,
-    "403": 0, "404": 0, "405": 0, "500": 0}
-counter = 0
-data = 0
+
+def statics(file_size, status_codes):
+    '''Helper function that builds statics.'''
+    scodes = [f"{k}:{v}" for k, v in status_codes.items()]
+    return (f"File size: {file_size}", scodes)
+
+
+def extract_data(s):
+    '''Extract useful data from string.'''
+    idx = len(s) - 1
+    while idx > 0:
+        if s[idx] == '\"':
+            break
+        idx -= 1
+    return s[idx + 1:].split()
+
+
+lines = 10
+file_size = 0
+status_codes = {}
+
 try:
-    for line in sys.stdin:
-        if counter == 10:
-            printx(data, status)
-            counter = 1
+    counter = 1
+    for text in sys.stdin:
+        if counter < lines:
+            data = extract_data(text)
+            if data[0] in status_codes.keys():
+                status_codes[data[0]] += 1
+            elif data[0]:
+                status_codes[data[0]] = 1
+            file_size += int(data[1])
         else:
-            counter = counter + 1
-        parsed = line.split()
-        try:
-            data = data + int(parsed[-1])
-        except Exception as e:
-            pass
-        try:
-            for key, value in status.items():
-                if key == parsed[-2]:
-                    status[key] = status[key] + 1
-        except Exception as e:
-            pass
-    printx(data, status)
-except KeyboardInterrupt as e:
-    printx(data, status)
+            f, s = statics(file_size, status_codes)
+            if not print(f) and [print(i) for i in sorted(s)]:
+                pass
+            counter = 1
+        counter += 1
+except KeyboardInterrupt:
+    signal_handler()
+finally:
+    f, s = statics(file_size, status_codes)
+    if not print(f) and [print(i) for i in sorted(s)]:
+        pass
