@@ -19,7 +19,7 @@ try:
             idx -= 1
         data = s[idx + 1:].split()
         filesize += int(data[1])
-        if counter < lines:
+        if counter <= lines:
             if data[0] in status.keys():
                 status[data[0]] += 1
             else:
