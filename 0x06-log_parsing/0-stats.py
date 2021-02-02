@@ -1,5 +1,8 @@
 #!/usr/bin/python3
-""" LogParser Module. """
+"""
+LogParser Module.
+"""
+
 
 import sys
 
