@@ -1,29 +1,29 @@
 #!/usr/bin/python3
-"""LogParser Module."""
+""" LogParser Module. """
 
 import sys
 
 
 class Parser:
-    """Parser class - parses lod data from stdin."""
+    """ Parser class - parses lod data from stdin. """
     __file_size = 0
     __status_codes = {}
 
     def __init__(self, lines=10):
-        """Set lines && Start listening to cntrl-c."""
+        """ Set lines && Start listening to cntrl-c. """
         self.lines = lines
 
     def signal_handler(self):
-        """Handles cntr-c signal."""
+        """ Handles cntr-c signal. """
         self.build_data(self.__file_size, self.__status_codes)
 
     def statics(self, file_size, status_codes):
-        """Helper function that builds statics."""
+        """ Helper function that builds statics. """
         scodes = [f"{k}:{v}" for k, v in self.__status_codes.items()]
         return (f"File size: {file_size}", scodes)
 
     def extract_data(self, s):
-        """Extract useful data from string."""
+        """ Extract useful data from string. """
         idx = len(s) - 1
         while idx > 0:
             if s[idx] == '\"':
@@ -32,7 +32,7 @@ class Parser:
         return s[idx + 1:].split()
 
     def start(self):
-        """Process data."""
+        """ Process data. """
         try:
             counter = 1
             for text in sys.stdin:
@@ -59,4 +59,5 @@ class Parser:
                 pass
 
 
+# Start script
 Parser().start()
