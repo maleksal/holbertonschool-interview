@@ -6,7 +6,7 @@ import sys
 
 
 def statics(file_size, status_codes):
-    """ Helper function that builds statics """
+    """ statics Helper function that builds statics """
     scodes = [f"{k}:{v}" for k, v in status_codes.items()]
     return (f"File size: {file_size}", scodes)
 
