@@ -11,16 +11,6 @@ def statics(file_size, status_codes):
     return (f"File size: {file_size}", scodes)
 
 
-def extract_data(s):
-    """ Extract useful data from string """
-    idx = len(s) - 1
-    while idx > 0:
-        if s[idx] == '\"':
-            break
-        idx -= 1
-    return s[idx + 1:].split()
-
-
 lines = 10
 file_size = 0
 status_codes = {}
@@ -28,8 +18,13 @@ status_codes = {}
 try:
     counter = 1
     for text in sys.stdin:
+        idx = len(text) - 1
+        while idx > 0:
+            if text[idx] == '\"':
+                break
+            idx -= 1
         if counter < lines:
-            data = extract_data(text)
+            data = text[idx + 1:].split()
             if data[0] in status_codes.keys():
                 status_codes[data[0]] += 1
             elif data[0]:
