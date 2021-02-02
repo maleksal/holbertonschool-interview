@@ -5,19 +5,14 @@
 import sys
 
 
-def signal_handler():
-    """Handles cntr-c signal"""
-    extract_data(file_size, status_codes)
-
-
 def statics(file_size, status_codes):
-    """Helper function that builds statics"""
+    """ Helper function that builds statics """
     scodes = [f"{k}:{v}" for k, v in status_codes.items()]
     return (f"File size: {file_size}", scodes)
 
 
 def extract_data(s):
-    """Extract useful data from string"""
+    """ Extract useful data from string """
     idx = len(s) - 1
     while idx > 0:
         if s[idx] == '\"':
@@ -47,7 +42,9 @@ try:
             counter = 1
         counter += 1
 except KeyboardInterrupt:
-    signal_handler()
+    f, s = statics(file_size, status_codes)
+    if not print(f) and [print(i) for i in sorted(s)]:
+        pass
 finally:
     f, s = statics(file_size, status_codes)
     if not print(f) and [print(i) for i in sorted(s)]:
