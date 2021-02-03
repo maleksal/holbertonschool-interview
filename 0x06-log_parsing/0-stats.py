@@ -3,6 +3,7 @@
 
 
 import sys
+import re
 
 
 def print_status(fsize, status_codes):
@@ -24,13 +25,14 @@ try:
                 break
             idx -= 1
         data = txt[idx + 1:].split()
-        filesize += int(data[1]) if len(data) > 1 else 0
-        if data[0] in status.keys():
-            status[data[0]] += 1
-        else:
-            status[data[0]] = 1
-        if n % 10 == 0:
-            print_status(filesize, status)
+        if data and len(data) > 1:
+            filesize += int(data[1])
+            if data[0] in status.keys():
+                status[data[0]] += 1
+            else:
+                status[data[0]] = 1
+            if n % 10 == 0:
+                print_status(filesize, status)
 except KeyboardInterrupt as e:
     print_status(filesize, status)
 finally:
