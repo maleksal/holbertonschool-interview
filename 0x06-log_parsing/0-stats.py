@@ -25,12 +25,13 @@ try:
                 break
             idx -= 1
         data = txt[idx + 1:].split()
-        if len(data) > 1 and data[0].isdigit() and data[1].isdigit():
-            filesize += int(data[1])
-            if data[0] in status.keys():
-                status[data[0]] += 1
-            else:
-                status[data[0]] = 1
+        if len(data) > 1:
+            filesize += int(data[1]) if data[1].isdigit() else 0
+            if data[0].isdigit():
+                if data[0] in status.keys():
+                    status[data[0]] += 1
+                else:
+                    status[data[0]] = 1
             if n % 10 == 0:
                 print_status(filesize, status)
 except KeyboardInterrupt as e:
