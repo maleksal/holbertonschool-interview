@@ -4,37 +4,34 @@
 
 import sys
 
+
+def print_status(fsize, status_codes):
+    """ Prints statics """
+    print("File size: {}".format(filesize))
+    for key in sorted(status.keys()):
+        print("{}: {}".format(key, status[key]))
+
+
 # initialize var
 filesize = 0
-counter = 1
-lines = 10
 status = {}
 
 try:
-    for s in sys.stdin:
-        idx = len(s) - 1
+    for n, txt in enumerate(sys.stdin, 1):
+        idx = len(txt) - 1
         while idx > 0:
-            if s[idx] == '\"':
+            if txt[idx] == '\"':
                 break
             idx -= 1
-        data = s[idx + 1:].split()
+        data = txt[idx + 1:].split()
         filesize += int(data[1])
-        if counter <= lines:
-            if data[0] in status.keys():
-                status[data[0]] += 1
-            else:
-                status[data[0]] = 1
+        if data[0] in status.keys():
+            status[data[0]] += 1
         else:
-            print("File size: {}".format(filesize))
-            for k, v in status.items():
-                print("{}: {}".format(k, v))
-            counter = 1
-        counter += 1
+            status[data[0]] = 1
+        if n % 10 == 0:
+            print_status(filesize, status)
 except KeyboardInterrupt as e:
-    print("File size: {}".format(filesize))
-    for k, v in status.items():
-        print("{}: {}".format(k, v))
+    print_status(filesize, status)
 finally:
-    print("File size: {}".format(filesize))
-    for k, v in status.items():
-        print("{}: {}".format(k, v))
+    print_status(filesize, status)
