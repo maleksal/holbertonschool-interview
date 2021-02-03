@@ -24,7 +24,7 @@ try:
                 break
             idx -= 1
         data = txt[idx + 1:].split()
-        filesize += int(data[1])
+        filesize += int(data[1]) if len(data) > 1 else 0
         if data[0] in status.keys():
             status[data[0]] += 1
         else:
