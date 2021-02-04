@@ -12,13 +12,13 @@ int check_cycle(listint_t *list)
 	if (list)
 	{
 		backword = list;
-		forward = backword->next;
-		while (backword && forward)
+		forward = list;
+		while (backword && forward && forward->next)
 		{
-			backword = backword->next;
-			forward = forward->next;
 			if (backword == forward)
 				return (1);
+			backword = backword->next;
+			forward = forward->next->next;
 		}
 		return (0);
 	}
