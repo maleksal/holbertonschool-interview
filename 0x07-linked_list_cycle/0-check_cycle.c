@@ -15,7 +15,7 @@ int check_cycle(listint_t *list)
 		forward = list;
 		while (backword && forward && forward->next)
 		{
-			if (backword == forward)
+			if (backword == forward->next)
 				return (1);
 			backword = backword->next;
 			forward = forward->next->next;
