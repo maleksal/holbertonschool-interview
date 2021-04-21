@@ -18,6 +18,6 @@ def canUnlockAll(boxes):
     keys = []
     [
         keys.append(k) for i, box in enumerate(boxes)
-        for k in box if k != i and (k not in keys and k <= len(boxes))
+        for k in box if k != i and (k not in keys and k <= len(boxes) - 1)
     ]
     return sum(keys) == sum(range(len(boxes)))
