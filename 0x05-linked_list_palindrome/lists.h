@@ -28,4 +28,3 @@ int is_palindrome(listint_t **head);
 void iterater_list(int *list, int *length, int SIZE, listint_t *head);
 
 #endif /* LISTS_H */
-
