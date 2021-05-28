@@ -48,7 +48,6 @@ int is_palindrome(listint_t **head)
 
 	/* get elements */
 	list = malloc(sizeof(int) * SIZE);
-	memset(list, 0, sizeof(*list));
 	iterater_list(list, &length, SIZE, *head);
 	while (n < (length / 2))
 	{
