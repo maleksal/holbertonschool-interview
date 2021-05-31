@@ -5,21 +5,15 @@
  * iterater_list - iterrate over singly linked list.
  * @list: pointer to list.
  * @length: pointer to variable length
- * @SIZE: size of list.
  * @head: pointer to linked list.
  */
-void iterater_list(int *list, int *length, int SIZE, listint_t *head)
+void iterater_list(int *list, int *length, listint_t *head)
 {
 	int count = 0;
 	listint_t *pointer = head;
 
 	while (pointer != NULL)
 	{
-		if (count > SIZE)
-		{
-			SIZE = (SIZE + 20);
-			list = realloc(list, SIZE);
-		}
 		list[count] = pointer->n;
 		count++;
 		pointer = pointer->next;
@@ -39,7 +33,7 @@ void iterater_list(int *list, int *length, int SIZE, listint_t *head)
 int is_palindrome(listint_t **head)
 {
 	int *list;
-	int SIZE = 20;
+	int SIZE = 200000;
 	int length = 0;
 	int n = 0;
 
@@ -48,7 +42,7 @@ int is_palindrome(listint_t **head)
 
 	/* get elements */
 	list = malloc(sizeof(int) * SIZE);
-	iterater_list(list, &length, SIZE, *head);
+	iterater_list(list, &length, *head);
 	while (n < (length / 2))
 	{
 		if (list[n] != list[abs(n - length) - 1])
