@@ -32,8 +32,7 @@ void iterater_list(int *list, int *length, listint_t *head)
  */
 int is_palindrome(listint_t **head)
 {
-	int *list;
-	int SIZE = 200000;
+	int list[200000];
 	int length = 0;
 	int n = 0;
 
@@ -41,18 +40,15 @@ int is_palindrome(listint_t **head)
 		return (1);
 
 	/* get elements */
-	list = malloc(sizeof(int) * SIZE);
 	iterater_list(list, &length, *head);
 	while (n < (length / 2))
 	{
 		if (list[n] != list[abs(n - length) - 1])
 		{
-			free(list);
 			return (0);
 		}
 		n = n + 1;
 	}
-	free(list);
 	return (1);
 }
 
