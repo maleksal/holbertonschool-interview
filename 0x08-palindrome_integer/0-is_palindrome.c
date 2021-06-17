@@ -1,25 +1,6 @@
 #include "palindrome.h"
-
-
-/**
- * calculate_length - get length of integer
- * @n: is the number to be checked
- * Return: length of integer
- */
-
-int calculate_length(unsigned long n)
-{
-int length;
-unsigned long tmp = n;
-
-while (tmp != 0)
-{
-tmp /= 10;
-length++;
-}
-return (length);
-}
-
+#include <stdlib.h>
+#include <stdio.h>
 
 /**
  * is_palindrome - Checks whether or not a given unsigned
@@ -30,36 +11,17 @@ return (length);
 
 int is_palindrome(unsigned long n)
 {
+unsigned long tmp = n, reversed = 0;
 
-/* Get length of a number */
-int length = calculate_length(n);
-int array[length];
-int idx = 0;
-
-unsigned long tmp = n;
-unsigned long reversed_int;
-
-/* split numbers and add them to array */
-while (tmp != 0)
+while (tmp > 0)
 {
-array[idx] = tmp % 10;
-tmp /= 10;
-idx++;
+reversed *= 10;
+reversed += tmp % 10;
+tmp = tmp / 10;
 }
 
-/* reset idx */
-idx = 0;
-
-/* turn array of numbers into an int */
-while (idx < length)
-{
-reversed_int = 10 * reversed_int + array[idx];
-idx++;
-}
-
-if (reversed_int == n)
-{
+if (n == reversed)
 return (1);
-}
+else
 return (0);
 }
