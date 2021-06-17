@@ -62,7 +62,4 @@ if (reversed_int == n)
 return (1);
 }
 return (0);
-
-
-
 }
