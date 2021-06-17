@@ -1,5 +1,4 @@
 #include "palindrome.h"
-#include <math.h>
 
 
 /**
