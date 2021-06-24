@@ -9,6 +9,12 @@ def validUTF8(data):
 
     cnt = 0
     for byte in data:
+
+        if 128 <= byte <= 191:
+            if cnt == 0:
+                return False
+            cnt -= 1
+
         if byte < 128:
             continue
         elif byte < 224:
