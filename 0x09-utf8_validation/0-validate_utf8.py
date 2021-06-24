@@ -1,7 +1,12 @@
 #!/usr/bin/python3
+"""
+UTF8 Module
+"""
 
 
 def validUTF8(data):
+    """validate utf8 encodings."""
+
     cnt = 0
     for byte in data:
         if byte < 128:
