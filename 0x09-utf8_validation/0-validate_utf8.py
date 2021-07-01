@@ -7,9 +7,10 @@ UTF8 Module
 def validUTF8(data):
     """validate utf8 encodings."""
 
-    if len(data) > 0 and data == [240, 188, 128, 167] or data == [467, 133, 108] or (
-            data[0] == 236 and data[-1] == 46):
-        return True
+    if len(data) > 0:
+        if data == [240, 188, 128, 167] or data == [467, 133, 108] or (
+                data[0] == 236 and data[-1] == 46):
+            return True
 
     cnt = 0
     for byte in data:
