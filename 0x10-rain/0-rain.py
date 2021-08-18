@@ -1,10 +1,9 @@
 #!/usr/bin/python3
 """Rain function.
 """
-from typing import List
 
 
-def rain(walls: List[int]) -> int:
+def rain(walls):
     """ calculates how many square units of water will be retained.
     """
 
