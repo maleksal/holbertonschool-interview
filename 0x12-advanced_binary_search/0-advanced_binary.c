@@ -2,18 +2,24 @@
 
 /**
  * print_array - prints an array
- * @left: first el of the array
- * @right: last el of the array
- * @array: pointer to aim to the first element
+ * @array: array of elements
+ * @start_i: start_point
+ * @size: size of array
  **/
-void print_array(int *array, size_t left, size_t right)
+void print_array(int array[], size_t start_i, size_t size)
 {
-printf("Searching in array: ");
-for ( ; left < right; left++)
+if (start_i > size)
+return;
+
+if (start_i < size)
 {
-printf("%i, ", array[left]);
+printf("%d, ", array[start_i]);
 }
-printf("%i\n", array[left]);
+else
+{
+printf("%d", array[start_i]);
+}
+print_array(array, start_i + 1, size);
 }
 
 /**
@@ -34,8 +40,10 @@ return (-1);
 
 for ( ; start_i <= end_i ; )
 {
-print_array(array, start_i, end_i);
 
+printf("Searching in array: ");
+print_array(array, start_i, end_i);
+printf("\n");
 c_index = (start_i + end_i) / 2;
 
 if (array[c_index] == value && array[c_index - 1] != value)
