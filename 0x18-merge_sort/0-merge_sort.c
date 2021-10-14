@@ -99,4 +99,5 @@ int *temp_array;
 
 temp_array = intcpy(array, size);
 acctual_mergesort(array, temp_array, 0, size);
+free(temp_array);
 }
