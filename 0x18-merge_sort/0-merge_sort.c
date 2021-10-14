@@ -76,8 +76,13 @@ merge(array, temp_array, start, mid, end);
  */
 int *intcpy(int const *src, size_t len)
 {
+int i;
 int *p = malloc(len * sizeof(int));
-memcpy(p, src, len * sizeof(int));
+
+for (i = 0; i < (int) len; i++)
+{
+p[i] = src[i];
+}
 return (p);
 }
 
