@@ -13,9 +13,12 @@ def makeChange(coins, total):
         return 0
 
     coins = sorted(coins, reverse=True)
-    counter = max(coins) if max(coins) <= total else 0
-    total_in_coins = False if counter != 0 else True
     number_of_coins = 1
+
+    while max(coins) > total:
+        coins.pop(0)
+
+    counter = max(coins)
 
     while coins and counter < total:
 
@@ -24,7 +27,7 @@ def makeChange(coins, total):
 
         if coins:
             counter += max(coins)
-            number_of_coins += 0 if total_in_coins else 1
+            number_of_coins += 1
 
     if counter != total:
         number_of_coins = -1
