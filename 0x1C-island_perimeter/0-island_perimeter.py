@@ -8,17 +8,11 @@ def island_perimeter(grid):
     """
     Returns the perimeter of the island described in grid.
     """
-    l, nl = 0, 0
-    for idx, cell_grid in enumerate(grid[1:-1]):
-        idx += 1
-        for cell_idx, cell in enumerate(cell_grid[1:-1]):
-            cell_idx += 1
+    result = 0
+    for idx, cell_grid in enumerate(grid):
+        for cell_idx, cell in enumerate(cell_grid):
             if cell == 1:
-                l += 1
-                # check left side
-                if grid[idx][cell_idx - 1] == 1:
-                    nl += 1
-                # check right side
-                if grid[idx][cell_idx + 1] == 1:
-                    nl += 1
-    return l*4-2*nl
+                result += 4
+                result -= 2 if idx > 0 and  grid[idx - 1][cell_idx] == 1 else 0
+                result -= 2 if cell_idx > 0 and grid[idx][cell_idx - 1] == 1 else 0
+    return result
