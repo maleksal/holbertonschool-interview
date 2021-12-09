@@ -20,4 +20,4 @@ def pascal_triangle(n):
                 else triangle[i - 1][j - 1] + triangle[i - 1][j]
 
             )
-    return triangle
+    return triangle if n>= 0 else []
