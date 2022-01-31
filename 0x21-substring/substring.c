@@ -14,43 +14,47 @@
 *   in s at which a substring was found, else NULL
 */
 
+
 int *find_substring(char const *s, char const **words, int nb_words, int *n)
 {
-int _length, w_length, tmp_var_a, tmp_var_b = 0, k;
-int *element, *found;
-if (!s)
-return (NULL);
-*n = 0, _length = strlen(s), w_length = strlen(words[0]);
-found = malloc(nb_words * sizeof(int));
-element = malloc(_length * sizeof(int));
-while (tmp_var_b <= _length - nb_words * w_length)
+int this_idx, c, l, wl, str, i, j, k;
+int *matching, *array;
+
+if (s && words && n && nb_words != 0)
 {
-tmp_var_a = 0;
-while (tmp_var_a < nb_words)
+l = strlen(s);
+wl = strlen(words[0]);
+array = malloc(l *sizeof(int));
+matching = malloc(nb_words * sizeof(int));
+if (array && matching)
 {
-found[tmp_var_a] = 0;
-tmp_var_a++;
-}
-tmp_var_a = 0;
-while (tmp_var_a < nb_words)
+for (i = c = 0; i <= l - nb_words * wl; i++)
+{
+memset(matching, 0, nb_words * sizeof(int));
+for (j = 0; j < nb_words; j++)
 {
 for (k = 0; k < nb_words; k++)
 {
-if (found[k] == 0 &&
-strncmp(s + tmp_var_b + tmp_var_a *w_length, words[k], w_length) == 0)
+this_idx = i + j * wl;
+str = strncmp(s + this_idx, *(words + k), wl);
+if (!*(matching + k) && !str)
 {
-found[k] = 1;
+*(matching + k) = 1;
 break;
 }
 }
-if (k != nb_words)
+if (k == nb_words)
 break;
-tmp_var_a++;
 }
-if (tmp_var_a == nb_words)
-element[(*n)++] = tmp_var_b;
-tmp_var_b++;
+if (j == nb_words)
+*(array + c) = i, c += 1;
 }
-free(found);
-return (element);
 }
+else
+return (NULL);
+free(matching);
+*n = c;
+return (array);
+}
+else
+return (NULL); }
